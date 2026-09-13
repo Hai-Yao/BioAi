@@ -1,0 +1,17 @@
+[project]
+name = "bioai"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "ipykernel>=6.29.5",
+    "numpy>=1.24.4",
+]
+
+[project.scripts]
+bioai = "bioai:main"
+
+[build-system]
+requires = ["uv_build>=0.12.13,<0.13.0"]
+build-backend = "uv_build"
