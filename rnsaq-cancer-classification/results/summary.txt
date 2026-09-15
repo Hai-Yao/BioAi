@@ -1,0 +1,5 @@
+sequence_id	length	gc_contents
+seq1	26	53.85
+seq2	20	60.0
+seq3	16	50.0
+seq4	24	50.0

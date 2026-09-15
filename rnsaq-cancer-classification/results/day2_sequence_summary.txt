@@ -1,0 +1,4 @@
+sequence: ATGCGATCGATCGTTAGCGGCTAACG
+sequence length: 26
+GC content: 53.85
+reverse complement: CGTTAGCCGCTAACGATCGATCGCAT
