@@ -51,22 +51,28 @@ def sequence_lengths(fasta_file):
     lengths = {header: len(seq) for header, seq in sequences.items()}
     return lengths
 
-print(sequence_lengths("../data/example.fasta"))
-
 # calculate the GC content of each sequence in a fasta file
 def sequence_gc_content(fasta_file):
     sequences = read_fasta(fasta_file)
-    gc_contents = {header: gc_content_robust(seq) for header, seq in sequences.items()}
+    gc_contents = {header: gc_content(seq) for header, seq in sequences.items()}
     return gc_contents
-
-print(sequence_gc_content("../data/example.fasta"))
 
 #find the highest GC content sequence in a fasta file
 def highest_gc_content(fasta_file):
     gc_contents = sequence_gc_content(fasta_file)
     for header, gc in gc_contents.items():
         if gc == max(gc_contents.values()):
-            print(f"Highest GC sequence: {header},{gc}%")
+            return header, gc
+
+## filter sequences based on length
+def filter_sequences(fasta_file):
+    sequences = read_fasta(fasta_file)
+    min_length = 20
+    filter_sequences = {}
+    for header, seq in sequences.items():
+        if len(seq) >= 20:
+            filter_sequences[header] = seq
+    return filter_sequences
 
 # summary
 def summary(fasta_file, output_file):
@@ -85,6 +91,7 @@ def summary(fasta_file, output_file):
     
     #find the highest GC content sequence
     highest_gc_content(fasta_file)
+    print(f"Highest GC sequence: {header}, {gc}%")
 
     #filter sequences based on length
     print(f"sequences longer than 20: {filter_sequences(fasta_file)}")
@@ -92,5 +99,5 @@ def summary(fasta_file, output_file):
     with open(output_file, "w") as f_out:
         f_out.write("sequence_id\tlength\tgc_contents\n")
         for header, seq in sequences.items():
-            f_out.write(f"{header}\t{len(seq)}\t{gc_content_robust(seq)}\n")
+            f_out.write(f"{header}\t{len(seq)}\t{gc_content(seq)}\n")
     print(f"summary written to {output_file}")
